@@ -19,6 +19,7 @@ import EditUserDetails from "./components/EditUserDetails";
 import UserContext from './userContext';
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import Home from "./components/Home";
 
 const initialState = {
     user: null,
@@ -65,7 +66,7 @@ function App() {
 
                     <Route exact path="/">
                         {/*{isLoggedIn ? <RecipeList user={state.user}/> : 'Please login to see your recipes'}*/}
-                        <RecipeList/>
+                       <Home/>
                     </Route>
                     <Route exact path="/recipe/:id">
                         <RecipeDetails/>
@@ -81,6 +82,9 @@ function App() {
                     <Route exact path="/tag/:tag" component={RecipeList}></Route>
                     <Route exact path="/user/:username">
                         <UserAccount user={state.user}/>
+                    </Route>
+                    <Route exact path="/my-recipes/">
+                        <RecipeList></RecipeList>
                     </Route>
                     <Route exact path="/favorites/" component={RecipeList}></Route>
                     <Route exact path="/add-ingredient/:id" component={AddIngredient}/>

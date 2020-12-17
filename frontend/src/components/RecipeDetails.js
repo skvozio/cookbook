@@ -21,8 +21,8 @@ function RecipeDetails(props) {
     const [show, setShow] = useState(false);
     const [showShare, setShowShare] = useState(false);
     const user = React.useContext(UserContext);
-    const token = user? user.token: null;
-    const user_id = user? user.id: 0;
+    const token = user ? user.token: null;
+    const user_id = user ? user.id: 0;
     const deleteUrl = (id) => `${baseUrl}/api/v1/recipes/${id}/`
 
     useEffect(() => {
@@ -33,8 +33,6 @@ function RecipeDetails(props) {
                 setEditable(user_id === response.data.user_id.id)
             })
     }, [editRecipeMode]);
-
-    const userUrl = (username) => `/user/${username}/`;
 
 
     function onAgreeToDelete() {
@@ -92,8 +90,9 @@ function RecipeDetails(props) {
                                             <div className="recipe-head">
                                                 <h1 className="recipe-title">{recipe.name}</h1>
                                                 <div className="recipe-auth">
-                                                        <span>Posted by <a
-                                                            href={`/user/${recipe.user_id.username}`}>{recipe.user_id.username}</a></span>
+                                                    <img src={recipe.user_id.profile.pic} alt="recipe author"/>
+                                                        <span>Posted by
+                                                            <a href={`/user/${recipe.user_id.username}`}> {recipe.user_id.username}</a></span>
                                                 </div>
                                                 <div className="recipe-finger">
 
@@ -120,7 +119,11 @@ function RecipeDetails(props) {
                                                         <Link to="#" onClick={()=>{setShowShare(true)}}><i className="fas fa-share-alt"></i>
                                                         </Link>
                                                         <SharePopover onClose={onCloseShare} show={showShare}/>
-                                                        <Link to="#"><i className="fas fa-bookmark"></i></Link>
+                                                        {user && !recipe.favorite ?
+                                                            <Link to="#" data-toggle="tooltip" data-placement="bottom" title="Add to favorites"><i className="far fa-bookmark"></i></Link> :
+                                                            null
+                                                        }
+
                                                     </div>
 
                                                 </div>
